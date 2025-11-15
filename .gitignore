@@ -60,6 +60,7 @@ models/
 temp/
 temp_*/
 tmp/
+temp*
 " > .gitignore
 
-token
+bot_token.py

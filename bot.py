@@ -2,11 +2,12 @@
 import logging
 import requests
 import asyncio
-from token import TOKEN
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, Message
 from aiogram.enums import ParseMode
+
+from bot_token import TOKEN # файл с переменной TOKEN = "ВАШ_ТОКЕН"
 
 API_URL = "http://localhost:8000/scan"
 
