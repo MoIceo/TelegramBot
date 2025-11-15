@@ -2,13 +2,13 @@
 import logging
 import requests
 import asyncio
+from token import TOKEN
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, Message
 from aiogram.enums import ParseMode
 
 API_URL = "http://localhost:8000/scan"
-TOKEN = "8571040809:AAHPdaUSXuUAo79lw09NUsdR6s9KKxQu_M0"
 
 logging.basicConfig(level=logging.INFO)
 

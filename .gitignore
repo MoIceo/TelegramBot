@@ -61,3 +61,5 @@ temp/
 temp_*/
 tmp/
 " > .gitignore
+
+token
