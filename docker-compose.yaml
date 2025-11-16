@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  scan_bot:
+    build: .
+    container_name: scan_bot
+    restart: unless-stopped
+    environment:
+      TOKEN: "" # Токен телеграмм-бота

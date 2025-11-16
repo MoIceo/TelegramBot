@@ -1,4 +1,4 @@
-﻿acres==0.5.0
+acres==0.5.0
 aiofiles==24.1.0
 aiogram==3.22.0
 aiohappyeyeballs==2.6.1
