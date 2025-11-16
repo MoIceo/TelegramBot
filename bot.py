@@ -30,13 +30,23 @@ def main_keyboard():
 
 
 # ---------- Хелпер форматирования ----------
+def escape_markdown(text):
+    """Экранирование специальных символов для MarkdownV2"""
+    if text is None:
+        return ""
+    
+    escape_chars = r'_*[]()~`>#+-=|{}.!'
+    return str(text).translate(str.maketrans({char: f'\\{char}' for char in escape_chars}))
+
 def fmt(label, value):
     """
     Показывает строку только если значение существует.
     """
     if value is None or value == "" or value == "None":
         return ""
-    return f"**{label}:** {value}\n"
+    
+    escaped_value = escape_markdown(value)
+    return f"**{label}:** {escaped_value}\n"
 
 
 # ---------- Команда /start ----------
@@ -125,7 +135,7 @@ async def handle_document(message: Message):
     text += "\n"
 
     # --- Поставщик ---
-    if any(v for v in supplier.values()):
+    if any(v for v in supplier.values() if v):
         text += "👨‍💼 *Поставщик:*\n"
         text += fmt("Название", supplier.get("name"))
         text += fmt("ИНН", supplier.get("inn"))
@@ -138,7 +148,7 @@ async def handle_document(message: Message):
         text += "\n"
 
     # --- Покупатель ---
-    if any(v for v in buyer.values()):
+    if any(v for v in buyer.values() if v):
         text += "🧾 *Покупатель:*\n"
         text += fmt("Название", buyer.get("name"))
         text += fmt("ИНН", buyer.get("inn"))
@@ -160,17 +170,20 @@ async def handle_document(message: Message):
         for item in items:
             line = ""
             if item.get("name"):
-                line += f"• {item['name']}"
+                line += f"• {escape_markdown(item['name'])}"
             if item.get("qty"):
-                line += f" — {item['qty']} шт"
+                line += f" — {escape_markdown(item['qty'])} шт"
             if item.get("price"):
-                line += f", цена {item['price']}"
+                line += f", цена {escape_markdown(item['price'])}"
             if item.get("total"):
-                line += f", сумма {item['total']}"
+                line += f", сумма {escape_markdown(item['total'])}"
             text += line + "\n"
         text += "\n"
 
     waiting_for_pdf[user_id] = False
+
+    if len(text) > 4096:
+        text = text[:4090] + "\n..."
 
     await message.answer(text, parse_mode=ParseMode.MARKDOWN, reply_markup=main_keyboard())
 
