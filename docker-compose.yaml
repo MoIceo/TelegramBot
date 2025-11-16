@@ -5,3 +5,5 @@ services:
     build: .
     container_name: scan_bot
     restart: unless-stopped
+    environment:
+      TOKEN: "" # Токен телеграмм-бота
