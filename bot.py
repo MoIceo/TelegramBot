@@ -2,18 +2,19 @@
 import logging
 import requests
 import asyncio
+import os
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, Message
 from aiogram.enums import ParseMode
-
-from bot_token import TOKEN # файл с переменной TOKEN = "ВАШ_ТОКЕН"
+from dotenv import load_dotenv, dotenv_values 
 
 API_URL = "http://localhost:8000/scan"
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token=TOKEN)
+load_dotenv() 
+bot = Bot(token=os.getenv("TOKEN"))
 dp = Dispatcher()
 
 # Хранение состояния
