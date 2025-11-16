@@ -35,8 +35,8 @@ def escape_markdown(text):
     if text is None:
         return ""
     
-    escape_chars = r'_*[]()~`>#+-=|{}.!'
-    return str(text).translate(str.maketrans({char: f'\\{char}' for char in escape_chars}))
+    escape_chars = r'_*[]()~`>#+-=|{}!'
+    return str(text).translate(str.maketrans({c: f'\\{c}' for c in escape_chars}))
 
 def fmt(label, value):
     """
